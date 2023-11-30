@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const Movie = require('./models/movie');
+const Movie = require('./movieSchema');
 
-app.get('/mymovies', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
+        // Obtén la lista de películas desde la base de datos MongoDB
         const myMovies = await Movie.find();
+
+        // Envia la lista de películas como respuesta
         res.json(myMovies);
     } catch (error) {
         console.error(error);
@@ -13,20 +16,14 @@ app.get('/mymovies', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+const PORT = 3003;
+
+mongoose.connect('mongodb://localhost:27017/your-database-name', { // TODO cambiar esta direccion
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('Connected to MongoDB');
+  app.listen(PORT, () => {
     console.log(`MyMovies microservice is running on port ${PORT}`);
-});
-
-// models/movie.js
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const movieSchema = new Schema({
-    title: String,
-    runtime: Number,
-    release_date: Date,
-    // Otros campos relevantes
-});
-
-module.exports = mongoose.model('Movie', movieSchema);
+  });
+}).catch(err => console.error('Error connecting to MongoDB:', err));

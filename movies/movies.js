@@ -1,11 +1,11 @@
 // movies.js
 const express = require('express');
 const app = express();
-const randomService = require('./randomService');
+const axios = require('axios');
 
 app.get('/', async (req, res) => {
     try {
-        const movieList = await randomService.getRandomMovies();
+        const movieList = await axios.get('http://localhost:3002/');
         // Renderizar la página web con la información recolectada
         res.send(renderMoviePage(movieList));
     } catch (error) {
@@ -26,7 +26,7 @@ function renderMoviePage(movieList) {
     return ret + '</div>';
 }
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Movies microservice is running on port ${PORT}`);
 });
