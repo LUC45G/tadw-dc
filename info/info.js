@@ -5,7 +5,7 @@ const app = express();
 const API_KEY = "62e9afa9b26ec1658e4f7c572663a19b"; 
 
 const MovieDB = require('node-themoviedb');
-const mdb = new MovieDB(API_KEY));
+const mdb = new MovieDB(API_KEY);
 
 
 app.get('/', async (req, res) => {
