@@ -19,8 +19,8 @@ function renderMoviePage(movieList) {
     // con la información recolectada de las películas
     let ret = '<div>\n';
     movieList.forEach(function(movie, index) {
-        let movie = `${index} - ${movie.title} salió el ${movie.release_date} y dura ${movie.runtime} minutos.`;
-        ret = ret + `<p> ${movie} </p>\n`;
+        let info = `${index} - ${movie.title} salió el ${movie.release_date} y dura ${movie.runtime} minutos.`;
+        ret = ret + `<p> ${info} </p>\n`;
     });
 
     return ret + '</div>';

@@ -18,9 +18,7 @@ app.get('/', async (req, res) => {
 
 const PORT = 3003;
 
-mongoose.connect('mongodb://localhost:27017/your-database-name', { // TODO cambiar esta direccion
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+mongoose.connect('mongodb://localhost:27017/movies', { // TODO cambiar esta direccion
 }).then(() => {
   console.log('Connected to MongoDB');
   app.listen(PORT, () => {
