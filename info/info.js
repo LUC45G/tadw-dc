@@ -21,8 +21,17 @@ app.get("/:id", async (req, res) => {
   } else {
     console.log("Película no encontrada");
   }
-  res.json(movieInfo);
+  
+  res.json(relevantInfo(movieInfo));
 });
+
+function relevantInfo(movie) {
+  return {
+    'title': movie.title,
+    'runtime': movie.runtime,
+    'release_date': movie.release_date
+  };
+}
 
 app.listen(3004, () => {
   console.log("Server is running on port 3004");

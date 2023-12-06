@@ -8,17 +8,19 @@ app.get('/', async (req, res) => {
         const myMovies = await axios.get('http://my-movies:3003/');
         
         // Extrae solo los datos relevantes (suponiendo que myMovies.data contiene la lista de películas)
-        const movieList = myMovies.data.map(movie => movie.title);
+        const movieList = myMovies.data.map(movie => movie.id_movie);
 
         // Obtiene películas al azar de la lista
         const randomMovies = getRandomMovies(movieList, 5);
 
         // Obtiene información de películas desde el microservicio remoto
-        const movieInfo = await axios.get('http://info:3004/', {
-            params: { movieIds: randomMovies.join(',') } // Suponiendo que el servicio info espera IDs como parámetros
-        });
+        let movieInfo = [];
+        for (let m of randomMovies) {
+            let info = await axios.get(`http://info:3004/${m}`);
+            movieInfo.push(info.data);
+        };
 
-        res.json(movieInfo.data);
+        res.json(movieInfo);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error interno del servidor');
@@ -31,7 +33,7 @@ function getRandomMovies(movieList, count) {
     return movieList.slice(start, start + count);
 }
 
-const PORT = process.env.PORT || 3002;
+const PORT = 3002;
 app.listen(PORT, () => {
     console.log(`Random microservice is running on port ${PORT}`);
 });
