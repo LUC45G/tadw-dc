@@ -5,7 +5,7 @@ const app = express();
 app.get('/', async (req, res) => {
     try {
         // Obtiene la lista de películas desde el microservicio remoto
-        const myMovies = await axios.get('http://localhost:3003/');
+        const myMovies = await axios.get('http://my-movies:3003/');
         
         // Extrae solo los datos relevantes (suponiendo que myMovies.data contiene la lista de películas)
         const movieList = myMovies.data.map(movie => movie.title);
@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
         const randomMovies = getRandomMovies(movieList, 5);
 
         // Obtiene información de películas desde el microservicio remoto
-        const movieInfo = await axios.get('http://localhost:3004/', {
+        const movieInfo = await axios.get('http://info:3004/', {
             params: { movieIds: randomMovies.join(',') } // Suponiendo que el servicio info espera IDs como parámetros
         });
 
