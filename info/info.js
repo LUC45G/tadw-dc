@@ -1,25 +1,29 @@
-const express = require('express');
+const axios = require("axios");
+const express = require("express");
 const app = express();
 
-// TODO probar la key del profe, capaz haya que pedir una nueva propia
-const API_KEY = "62e9afa9b26ec1658e4f7c572663a19b"; 
+async function getMovieInfo(movieId) {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=a5b42e4f5564bc636d81d5fc5a3ae2b7`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-const MovieDB = require('node-themoviedb');
-const mdb = new MovieDB(API_KEY);
-
-
-app.get('/', async (req, res) => {
-    try {
-        const movieIds = req.query.movieIds;
-        const movieInfo = await mdb.movie.getDetails(movieIds);
-        res.json(movieInfo);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error interno del servidor');
-    }
+app.get("/:id", async (req, res) => {
+  const movieId = req.params.id;
+  const movieInfo = await getMovieInfo(movieId);
+  if (movieInfo) {
+    console.log("Película encontrada:", movieInfo.title);
+  } else {
+    console.log("Película no encontrada");
+  }
+  res.json(movieInfo);
 });
 
-const PORT = 3004;
-app.listen(PORT, () => {
-    console.log(`Info microservice is running on port ${PORT}`);
+app.listen(3004, () => {
+  console.log("Server is running on port 3004");
 });

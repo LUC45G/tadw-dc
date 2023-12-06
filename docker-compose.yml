@@ -16,10 +16,28 @@ services:
             dockerfile: Dockerfile
         ports:
             - '3003:3003'
-        links:
+        depends_on:
             - mongo
         environment:
             - MONGO_URI=mongodb://mongo:27017/movies
+
+    
+    info:
+        build:
+            context: ./info
+            dockerfile: Dockerfile
+        ports:
+            - '3004:3004'
+
+
+#    random:
+ #       build:
+  #          context: ./random
+   #         dockerfile: Dockerfile
+    #    ports:
+     #       - '3002:3002'
+      #  depends_on:
+       #     - my-movies
 
 volumes:
     mongodb-data:
