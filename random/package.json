@@ -4,7 +4,7 @@
   "description": "",
   "main": "random.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node random.js"
   },
   "author": "",
   "license": "ISC",
