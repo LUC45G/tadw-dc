@@ -1,5 +1,6 @@
 # Proyecto TADW
 
+El microservicio principal se encuentra en http://localhost:3000/.
 
 ### Ejecutar el proyecto:
 
