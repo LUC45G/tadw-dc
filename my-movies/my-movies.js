@@ -6,7 +6,8 @@ const Movie = require("./movieSchema");
 app.get("/", async (req, res) => {
   try {
     // Obtén la lista de películas desde la base de datos MongoDB
-    const myMovies = await Movie.find();
+    //const myMovies = await Movie.find();
+    const myMovies = await Movie.find({}, { _id: 0, id_movie: 1 });
 
     // Envia la lista de películas como respuesta
     res.json(myMovies);
