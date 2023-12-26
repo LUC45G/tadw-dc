@@ -5,7 +5,7 @@ El microservicio principal se encuentra en http://localhost:3000/.
 ### Ejecutar el proyecto:
 
 ```
-git clone https://github.com/matichewer/proyecto-TADW
+git clone https://github.com/LUC45G/tadw-dc
 cd proyecto-TADW
 docker-compose up
 ```
